@@ -23,6 +23,9 @@ namespace BlackJack
         //accumulated value of cards
         public int playerCount = 0;
         public int dealerCount = 0;
+        public bool playerWin = false;
+        public bool dealerWin = false;
+        public bool gamedraw = false;
         Deck deck = new Deck();
 
         public MainWindow()
@@ -41,43 +44,46 @@ namespace BlackJack
             playerCount = 0;
             dealerCount = 0;
 
+            //reset winner
+            playerWin = false;
+            dealerWin = false;
+
+            //Clear Table
+            PlayerCards.Children.Clear();
+            DealerCards.Children.Clear();
+
         }
         
         //need to add condition that this wont occur unless cards are shuffled
         public void ButtonHit_Click(object sender, RoutedEventArgs e)
         {
-            //player card scheme
-            Card playerCard = deck.DealCard();
-            playerCount =+ playerCard.rank;
-            PlayerCards.Children.Add(GetCardImage(playerCard));
-
-            //dealer card scheme
+            //deal cards scheme
             if (dealerCount <= 15)
             {
-                Card dealerCard = deck.DealCard();
-                dealerCount = +dealerCard.rank;
-                DealerCards.Children.Add(GetCardImage(dealerCard));
+                DealPlayer();
+                DealDealer();
             }
             else
             {
-                
+                DealPlayer();
             }
+            checkWin();
         }
 
         public void ButtonHold_Click(object sender, RoutedEventArgs e)
         {
-            if (dealerCount <= 15)
+            if(dealerCount <= 15)
             {
-                Card dealerCard = deck.DealCard();
-                dealerCount = +dealerCard.rank;
-                DealerCards.Children.Add(GetCardImage(dealerCard));
+                DealDealer();
+                checkWin();
             }
             else
             {
-
-            }
+                checkWin();
+            }    
         }
 
+        //get image for dealt card
         public Image GetCardImage(Card card)
         {
             Image cardImage = new Image();
@@ -290,6 +296,7 @@ namespace BlackJack
             return cardImage;
         }
 
+        //resize image for panels
         private void ResizeImage(Image img, double maxWidth, double maxHeight)
         {
             double resizeWidth = img.Source.Width;
@@ -313,5 +320,61 @@ namespace BlackJack
             img.Height = resizeHeight;
         }
 
+        //deal card to player
+        public void DealDealer()
+        {
+            Card dealerCard = deck.DealCard();
+            dealerCount = dealerCard.rank + playerCount;
+            DealerCards.Children.Add(GetCardImage(dealerCard));
+        }
+
+        //deal card to dealer
+        public void DealPlayer()
+        {
+            Card playerCard = deck.DealCard();
+            playerCount = playerCard.rank + playerCount;
+            PlayerCards.Children.Add(GetCardImage(playerCard));
+        }
+
+        //method to check who won game
+        public void checkWin()
+        {
+            if((playerCount == 21) && (dealerCount == 21))
+            {
+                gamedraw = true;
+            }
+            else if (playerCount > 21)
+            {
+                dealerWin = true;
+            }
+            else if(playerCount > dealerCount)
+            {
+                playerWin = true;
+            }
+            else
+            {
+                gamedraw = false;
+                playerWin = false;
+                dealerWin = false;
+            }
+
+            if ((playerWin || dealerWin || dealerWin) == true)
+            {
+                deck.Shuffle();
+
+                //reset count of cards for next game
+                playerCount = 0;
+                dealerCount = 0;
+
+                //reset winner
+                playerWin = false;
+                dealerWin = false;
+                gamedraw = false;
+
+                //Clear Table
+                PlayerCards.Children.Clear();
+                DealerCards.Children.Clear();
+            }
+        }
     }
 }

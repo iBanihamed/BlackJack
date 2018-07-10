@@ -17,6 +17,8 @@
         </StackPanel>
         <TextBlock Text="Dealer" FontSize="30" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="115,61,591,0"/>
         <TextBlock Text="User" FontSize="30" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="587,61,145,319"/>
+        <TextBlock x:Name="TextBlock_PlayerWins" Text="You Win" FontSize="30" Foreground="Blue" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="343,61,338,319" Visibility="Collapsed"/>
+        <TextBlock x:Name ="TextBlock_PlayerLoses" Text="You Lose" FontSize="30" Foreground="Red" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="332,61,336,319" Visibility="Collapsed" Width="124"/>
         <Button x:Name ="ButtonHit" Click="ButtonHit_Click" Margin="517,310,231,73">
             <TextBlock Text="Hit"/>
         </Button>

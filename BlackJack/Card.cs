@@ -55,7 +55,7 @@ namespace BlackJack
                     rank = 10;
                     break;
                 case "Ace":   //need to make condition where rank can be 11 for user
-                    rank = 1;
+                    rank = 11;
                     break;
                 default:
                     break;
