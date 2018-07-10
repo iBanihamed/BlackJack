@@ -16,7 +16,7 @@ namespace BlackJack
         public Deck()
         {
             string[] faces = { "Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"};
-            string[] suits = { "Heart", "Diamnond", "Clover", "Spade" };
+            string[] suits = { "Heart", "Diamond", "Clover", "Spade" };
             deck = new Card[NUMBER_OF_CARDS];
             currentCard = 0;
             ranNum = new Random();

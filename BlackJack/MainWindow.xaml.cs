@@ -23,6 +23,7 @@ namespace BlackJack
         //accumulated value of cards
         public int playerCount = 0;
         public int dealerCount = 0;
+        public int dealerFakeCount = 0;
         public bool playerWin = false;
         public bool dealerWin = false;
         public bool gamedraw = false;
@@ -32,7 +33,20 @@ namespace BlackJack
         {
             InitializeComponent();
 
-         
+            deck.Shuffle();
+
+            //reset count of cards for next game
+            playerCount = 0;
+            dealerCount = 0;
+
+            //reset winner
+            playerWin = false;
+            dealerWin = false;
+
+            //Clear Table
+            PlayerCards.Children.Clear();
+            DealerCards.Children.Clear();
+
         }
 
         //Player Action Buttons
@@ -51,36 +65,40 @@ namespace BlackJack
             //Clear Table
             PlayerCards.Children.Clear();
             DealerCards.Children.Clear();
+            TextBlock_Draw.Visibility = Visibility.Collapsed;
+            TextBlock_PlayerLoses.Visibility = Visibility.Collapsed;
+            TextBlock_PlayerWins.Visibility = Visibility.Collapsed;
 
+            //Deal Cards
+            //deal face down card for dealer
+            Card dealHiddenCard = deck.DealCard();
+            Image hiddenCardImage = new Image();
+            BitmapImage bci = new BitmapImage();
+            bci.BeginInit();
+            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "blue_back.png", UriKind.Relative);
+            bci.EndInit();
+            hiddenCardImage.Source = bci;
+            ResizeImage(hiddenCardImage, 50, 150);
+            DealerCards.Children.Add(hiddenCardImage);
+
+            DealPlayer();
+            DealDealer();
+            DealPlayer();
         }
         
         //need to add condition that this wont occur unless cards are shuffled
         public void ButtonHit_Click(object sender, RoutedEventArgs e)
         {
-            //deal cards scheme
-            if (dealerCount <= 15)
-            {
-                DealPlayer();
-                DealDealer();
-            }
-            else
-            {
-                DealPlayer();
-            }
-            checkWin();
+            DealPlayer();
+            if (playerCount == 21)
+                dealerFlips();
+            else if (playerCount > 21)
+                checkWin();
         }
 
         public void ButtonHold_Click(object sender, RoutedEventArgs e)
         {
-            if(dealerCount <= 15)
-            {
-                DealDealer();
-                checkWin();
-            }
-            else
-            {
-                checkWin();
-            }    
+            dealerFlips();
         }
 
         //get image for dealt card
@@ -192,43 +210,43 @@ namespace BlackJack
                     switch (card.face)
                     {
                         case "Two":
-                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "2H.png", UriKind.Relative);
+                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "2D.png", UriKind.Relative);
                             break;
                         case "Three":
-                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "3H.png", UriKind.Relative);
+                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "3D.png", UriKind.Relative);
                             break;
                         case "Four":
-                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "4H.png", UriKind.Relative);
+                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "4D.png", UriKind.Relative);
                             break;
                         case "Five":
-                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "5H.png", UriKind.Relative);
+                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "5D.png", UriKind.Relative);
                             break;
                         case "Six":
-                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "6H.png", UriKind.Relative);
+                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "6D.png", UriKind.Relative);
                             break;
                         case "Seven":
-                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "7H.png", UriKind.Relative);
+                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "7D.png", UriKind.Relative);
                             break;
                         case "Eight":
-                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "8H.png", UriKind.Relative);
+                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "8D.png", UriKind.Relative);
                             break;
                         case "Nine":
-                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "9H.png", UriKind.Relative);
+                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "9D.png", UriKind.Relative);
                             break;
                         case "Ten":
-                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "10H.png", UriKind.Relative);
+                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "10D.png", UriKind.Relative);
                             break;
                         case "Jack":
-                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "JH.png", UriKind.Relative);
+                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "JD.png", UriKind.Relative);
                             break;
                         case "Queen":
-                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "QH.png", UriKind.Relative);
+                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "QD.png", UriKind.Relative);
                             break;
                         case "King":
-                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "KH.png", UriKind.Relative);
+                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "KD.png", UriKind.Relative);
                             break;
                         case "Ace":
-                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "AH.png", UriKind.Relative);
+                            bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "AD.png", UriKind.Relative);
                             break;
                         default:
                             bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "blue_back.png", UriKind.Relative);
@@ -286,7 +304,7 @@ namespace BlackJack
 
 
                 default:
-                    bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "blue_back.png", UriKind.Relative);
+                    bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "red_back.png", UriKind.Relative);
                     break;
             }
             
@@ -320,11 +338,22 @@ namespace BlackJack
             img.Height = resizeHeight;
         }
 
+        public void dealerFlips()
+        {
+            if (dealerCount <= 15) {
+                DealDealer();
+                dealerFlips();
+            }
+            else
+            {
+                checkWin();
+            }
+        }
         //deal card to player
         public void DealDealer()
         {
             Card dealerCard = deck.DealCard();
-            dealerCount = dealerCard.rank + playerCount;
+            dealerCount = dealerCard.rank + dealerCount;
             DealerCards.Children.Add(GetCardImage(dealerCard));
         }
 
@@ -342,14 +371,22 @@ namespace BlackJack
             if((playerCount == 21) && (dealerCount == 21))
             {
                 gamedraw = true;
+                TextBlock_Draw.Visibility = Visibility.Visible;
             }
             else if (playerCount > 21)
             {
                 dealerWin = true;
+                TextBlock_PlayerLoses.Visibility = Visibility.Visible;
+            }
+            else if (playerCount == 21)
+            {
+                playerWin = true;
+                TextBlock_PlayerWins.Visibility = Visibility.Visible;
             }
             else if(playerCount > dealerCount)
             {
                 playerWin = true;
+                TextBlock_PlayerWins.Visibility = Visibility.Visible;
             }
             else
             {
@@ -357,24 +394,7 @@ namespace BlackJack
                 playerWin = false;
                 dealerWin = false;
             }
-
-            if ((playerWin || dealerWin || dealerWin) == true)
-            {
-                deck.Shuffle();
-
-                //reset count of cards for next game
-                playerCount = 0;
-                dealerCount = 0;
-
-                //reset winner
-                playerWin = false;
-                dealerWin = false;
-                gamedraw = false;
-
-                //Clear Table
-                PlayerCards.Children.Clear();
-                DealerCards.Children.Clear();
-            }
+            
         }
     }
 }
