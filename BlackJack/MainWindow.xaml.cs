@@ -46,15 +46,36 @@ namespace BlackJack
         //need to add condition that this wont occur unless cards are shuffled
         public void ButtonHit_Click(object sender, RoutedEventArgs e)
         {
-            
-            PlayerCards.Children.Add(GetCardImage(deck.DealCard()));
-            
+            //player card scheme
+            Card playerCard = deck.DealCard();
+            playerCount =+ playerCard.rank;
+            PlayerCards.Children.Add(GetCardImage(playerCard));
 
+            //dealer card scheme
+            if (dealerCount <= 15)
+            {
+                Card dealerCard = deck.DealCard();
+                dealerCount = +dealerCard.rank;
+                DealerCards.Children.Add(GetCardImage(dealerCard));
+            }
+            else
+            {
+                
+            }
         }
 
         public void ButtonHold_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (dealerCount <= 15)
+            {
+                Card dealerCard = deck.DealCard();
+                dealerCount = +dealerCard.rank;
+                DealerCards.Children.Add(GetCardImage(dealerCard));
+            }
+            else
+            {
+
+            }
         }
 
         public Image GetCardImage(Card card)
@@ -265,7 +286,7 @@ namespace BlackJack
             
             bci.EndInit();
             cardImage.Source = bci;
-            ResizeImage(cardImage, 100, 150);
+            ResizeImage(cardImage, 50, 150);
             return cardImage;
         }
 
