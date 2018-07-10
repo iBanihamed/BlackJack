@@ -1,0 +1,30 @@
+﻿<Window x:Class="BlackJack.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BlackJack"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid x:Name="gameGrid" Background="Green">
+        <TextBlock Text="BlackJack" FontSize="30" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="331,10,337,0"/>
+        <Image Source="C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\deckofCardsBack.png" Height="150" Margin="0,124,0,146"/>
+        <StackPanel x:Name="PlayerCards" Orientation="Horizontal" Height="150" Width="300" Background ="LightBlue" Margin="482,124,10,146">
+
+        </StackPanel>
+        <StackPanel x:Name="DealerCards" Orientation="Horizontal"  Height="150" Width="300" Background="LightGreen" HorizontalAlignment="Center" Margin="10,124,482,146">
+
+        </StackPanel>
+        <TextBlock Text="Dealer" FontSize="30" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="115,61,591,0"/>
+        <TextBlock Text="User" FontSize="30" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="587,61,145,319"/>
+        <Button x:Name ="ButtonHit" Click="ButtonHit_Click" Margin="517,310,231,73">
+            <TextBlock Text="Hit"/>
+        </Button>
+        <Button x:Name ="ButtonHold" Click="ButtonHold_Click" Margin="685,310,63,73">
+            <TextBlock Text="Hold"/>
+        </Button>
+        <Button x:Name ="ButtonDeal" Click="ButtonDeal_Click" Margin="572,358,118,36" Background="BurlyWood">
+            <TextBlock Text="Deal"/>
+        </Button>
+    </Grid>
+</Window>
