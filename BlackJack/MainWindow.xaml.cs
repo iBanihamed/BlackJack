@@ -62,6 +62,7 @@ namespace BlackJack
             //reset winner
             playerWin = false;
             dealerWin = false;
+            gamedraw = false;
 
             //Clear Table
             PlayerCards.Children.Clear();
@@ -342,7 +343,8 @@ namespace BlackJack
 
         public void DealerFlips()
         {
-            if (dealerFakeCount <= 15) {
+            
+            if ((dealerCount <= 15)&& (dealerFakeCount < playerCount)) {
                 DealDealer();
                 DealerFlips();
             }
@@ -357,7 +359,6 @@ namespace BlackJack
         public void DealDealer()
         {
             Card dealerCard = deck.DealCard();
-            dealerFakeCount = dealerCard.rank + dealerFakeCount;
             dealerCount = dealerCard.rank + dealerCount;
             DealerCards.Children.Add(GetCardImage(dealerCard));
         }
