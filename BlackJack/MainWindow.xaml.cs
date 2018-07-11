@@ -27,6 +27,7 @@ namespace BlackJack
         public bool playerWin = false;
         public bool dealerWin = false;
         public bool gamedraw = false;
+        Card dealHiddenCard;
         Deck deck = new Deck();
 
         public MainWindow()
@@ -71,7 +72,8 @@ namespace BlackJack
 
             //Deal Cards
             //deal face down card for dealer
-            Card dealHiddenCard = deck.DealCard();
+            dealHiddenCard = deck.DealCard();
+            dealerCount = dealerCount + dealHiddenCard.rank;
             Image hiddenCardImage = new Image();
             BitmapImage bci = new BitmapImage();
             bci.BeginInit();
@@ -91,14 +93,14 @@ namespace BlackJack
         {
             DealPlayer();
             if (playerCount == 21)
-                dealerFlips();
+                DealerFlips();
             else if (playerCount > 21)
                 checkWin();
         }
 
         public void ButtonHold_Click(object sender, RoutedEventArgs e)
         {
-            dealerFlips();
+            DealerFlips();
         }
 
         //get image for dealt card
@@ -338,14 +340,16 @@ namespace BlackJack
             img.Height = resizeHeight;
         }
 
-        public void dealerFlips()
+        public void DealerFlips()
         {
-            if (dealerCount <= 15) {
+            if (dealerFakeCount <= 15) {
                 DealDealer();
-                dealerFlips();
+                DealerFlips();
             }
             else
             {
+                DealerCards.Children.RemoveAt(0);
+                DealerCards.Children.Add(GetCardImage(dealHiddenCard));
                 checkWin();
             }
         }
@@ -353,6 +357,7 @@ namespace BlackJack
         public void DealDealer()
         {
             Card dealerCard = deck.DealCard();
+            dealerFakeCount = dealerCard.rank + dealerFakeCount;
             dealerCount = dealerCard.rank + dealerCount;
             DealerCards.Children.Add(GetCardImage(dealerCard));
         }
@@ -368,31 +373,30 @@ namespace BlackJack
         //method to check who won game
         public void checkWin()
         {
-            if((playerCount == 21) && (dealerCount == 21))
-            {
-                gamedraw = true;
-                TextBlock_Draw.Visibility = Visibility.Visible;
-            }
-            else if (playerCount > 21)
+           if(playerCount > 21)
             {
                 dealerWin = true;
                 TextBlock_PlayerLoses.Visibility = Visibility.Visible;
             }
-            else if (playerCount == 21)
+           else if (dealerCount > 21)
             {
                 playerWin = true;
                 TextBlock_PlayerWins.Visibility = Visibility.Visible;
             }
-            else if(playerCount > dealerCount)
+           else if (dealerCount == playerCount)
+            {
+                gamedraw = true;
+                TextBlock_Draw.Visibility = Visibility.Visible;
+            }
+           else if (dealerCount > playerCount)
+            {
+                dealerWin = true;
+                TextBlock_PlayerLoses.Visibility = Visibility.Visible;
+            }
+           else 
             {
                 playerWin = true;
                 TextBlock_PlayerWins.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                gamedraw = false;
-                playerWin = false;
-                dealerWin = false;
             }
             
         }
