@@ -81,7 +81,7 @@ namespace BlackJack
             bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "blue_back.png", UriKind.Relative);
             bci.EndInit();
             hiddenCardImage.Source = bci;
-            ResizeImage(hiddenCardImage, 50, 150);
+            ResizeImage(hiddenCardImage, 100, 200);
             DealerCards.Children.Add(hiddenCardImage);
 
             DealPlayer();
@@ -313,7 +313,7 @@ namespace BlackJack
             
             bci.EndInit();
             cardImage.Source = bci;
-            ResizeImage(cardImage, 50, 150);
+            ResizeImage(cardImage, 100, 200);
             return cardImage;
         }
 

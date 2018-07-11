@@ -4,30 +4,165 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BlackJack"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="519.745" Width="995.86">
     <Grid x:Name="gameGrid" Background="Green">
         <TextBlock Text="BlackJack" FontSize="30" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="331,10,337,0"/>
-        <Image Source="C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\deckofCardsBack.png" Height="150" Margin="0,124,0,146"/>
-        <StackPanel x:Name="PlayerCards" Orientation="Horizontal" Height="150" Width="300" Background ="LightBlue" Margin="482,124,10,146">
-
-        </StackPanel>
-        <StackPanel x:Name="DealerCards" Orientation="Horizontal"  Height="150" Width="300" Background="LightGreen" HorizontalAlignment="Center" Margin="10,124,482,146">
-
-        </StackPanel>
-        <TextBlock Text="Dealer" FontSize="30" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="115,61,591,0"/>
-        <TextBlock Text="User" FontSize="30" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="587,61,145,319"/>
+        <Image Source="C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\blue_back.png" Margin="420,50,434,237"/>
+        <StackPanel x:Name="PlayerCards" Orientation="Horizontal"  Margin="578,100,10,201"/>
+        <StackPanel x:Name="DealerCards" Orientation="Horizontal" Width="381" HorizontalAlignment="Center" Margin="10,100,597,201" />
+        <TextBlock Text="Dealer" FontSize="30" Foreground="Black" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="134,50,768,0"/>
+        <TextBlock Text="Player" FontSize="30" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="741,50,157,400" Width="90"/>
         <TextBlock x:Name="TextBlock_PlayerWins" Text="You Win" FontSize="30" Foreground="Blue" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="343,61,338,319" Visibility="Collapsed"/>
         <TextBlock x:Name ="TextBlock_PlayerLoses" Text="You Lose" FontSize="30" Foreground="Red" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="332,61,336,319" Visibility="Collapsed" Width="124"/>
         <TextBlock x:Name ="TextBlock_Draw" Text="Draw" FontSize="30" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="332,61,336,319" Visibility="Collapsed" Width="124"/>
-        <Button x:Name ="ButtonHit" Click="ButtonHit_Click" Margin="517,310,231,73">
+        <Button x:Name ="ButtonHit" Click="ButtonHit_Click" Margin="647,401,237,41">
             <TextBlock Text="Hit"/>
         </Button>
-        <Button x:Name ="ButtonHold" Click="ButtonHold_Click" Margin="685,310,63,73">
+        <Button x:Name ="ButtonHold" Click="ButtonHold_Click" Margin="870,401,30,41">
             <TextBlock Text="Hold"/>
         </Button>
-        <Button x:Name ="ButtonDeal" Click="ButtonDeal_Click" Margin="572,358,118,36" Background="BurlyWood">
-            <TextBlock Text="Deal"/>
+        <Button x:Name ="ButtonDeal" Click="ButtonDeal_Click" Margin="751,439,118,10" Background="BurlyWood" Height="Auto">
+            <materialDesign:PackIcon Kind="CardsPlayingOutline"/>
         </Button>
+        <StackPanel x:Name ="StackPanelBetting" Orientation="Horizontal" ClipToBounds="True" Margin="712,349,71,107">
+            <Button Height="Auto" Width="Auto">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button" >
+                        <Grid >
+                            <Path Stretch="Uniform" UseLayoutRounding="False" Fill="Red">
+                                <Path.Data>
+                                    <EllipseGeometry RadiusX="11" RadiusY="11"/>
+                                </Path.Data>
+                            </Path>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+                <materialDesign:PackIcon Kind="Numeric1BoxOutline" Foreground="White"/>
+            </Button>
+            <Button Height="Auto" Width="Auto">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button" >
+                        <Grid >
+                            <Path Stretch="Uniform" UseLayoutRounding="False" Fill="Orange">
+                                <Path.Data>
+                                    <EllipseGeometry RadiusX="11" RadiusY="11"/>
+                                </Path.Data>
+                            </Path>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+                <materialDesign:PackIcon Kind="Numeric2BoxOutline"/>
+            </Button>
+            <Button Height="Auto" Width="Auto">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button" >
+                        <Grid >
+                            <Path Stretch="Uniform" UseLayoutRounding="False" Fill="Yellow">
+                                <Path.Data>
+                                    <EllipseGeometry RadiusX="11" RadiusY="11"/>
+                                </Path.Data>
+                            </Path>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+                <materialDesign:PackIcon Kind="Numeric3BoxOutline" Foreground="Black"/>
+            </Button>
+            <Button Height="Auto" Width="Auto">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button" >
+                        <Grid >
+                            <Path Stretch="Uniform" UseLayoutRounding="False" Fill="LightGreen">
+                                <Path.Data>
+                                    <EllipseGeometry RadiusX="11" RadiusY="11"/>
+                                </Path.Data>
+                            </Path>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+                <materialDesign:PackIcon Kind="Numeric4BoxOutline"/>
+            </Button>
+            <Button Height="Auto" Width="Auto">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button" >
+                        <Grid >
+                            <Path Stretch="Uniform" UseLayoutRounding="False" Fill="Blue">
+                                <Path.Data>
+                                    <EllipseGeometry RadiusX="11" RadiusY="11"/>
+                                </Path.Data>
+                            </Path>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+                <materialDesign:PackIcon Kind="Numeric5BoxOutline" Foreground="White"/>
+            </Button>
+            <Button Height="Auto" Width="Auto">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button" >
+                        <Grid >
+                            <Path Stretch="Uniform" UseLayoutRounding="False" Fill="Indigo">
+                                <Path.Data>
+                                    <EllipseGeometry RadiusX="11" RadiusY="11"/>
+                                </Path.Data>
+                            </Path>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+                <materialDesign:PackIcon Kind="Numeric6BoxOutline" Foreground="White"/>
+            </Button>
+            <Button Height="Auto" Width="Auto">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button" >
+                        <Grid >
+                            <Path Stretch="Uniform" UseLayoutRounding="False" Fill="Violet">
+                                <Path.Data>
+                                    <EllipseGeometry RadiusX="11" RadiusY="11"/>
+                                </Path.Data>
+                            </Path>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+                <materialDesign:PackIcon Kind="Numeric7BoxOutline"/>
+            </Button>
+            <Button Height="Auto" Width="Auto">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button" >
+                        <Grid >
+                            <Path Stretch="Uniform" UseLayoutRounding="False" Fill="Silver">
+                                <Path.Data>
+                                    <EllipseGeometry RadiusX="11" RadiusY="11"/>
+                                </Path.Data>
+                            </Path>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+                <materialDesign:PackIcon Kind="Numeric8BoxOutline" Foreground="Black"/>
+            </Button>
+            <Button Height="Auto" Width="Auto">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button" >
+                        <Grid >
+                            <Path Stretch="Uniform" UseLayoutRounding="False" Fill="Gold">
+                                <Path.Data>
+                                    <EllipseGeometry RadiusX="11" RadiusY="11"/>
+                                </Path.Data>
+                            </Path>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+                <materialDesign:PackIcon Kind="Numeric9BoxOutline"/>
+            </Button>
+
+        </StackPanel>
     </Grid>
 </Window>
