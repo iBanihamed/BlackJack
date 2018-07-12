@@ -21,14 +21,20 @@ namespace BlackJack
     public partial class MainWindow : Window
     {
         //accumulated value of cards
+        
         public int playerCount = 0;
         public int dealerCount = 0;
         public int dealerFakeCount = 0;
         public bool playerWin = false;
         public bool dealerWin = false;
         public bool gamedraw = false;
+        public bool dealerHasAce = true;
+        public bool playerHasAce = true;
+        public int pot = 0;
+
         Card dealHiddenCard;
         Deck deck = new Deck();
+        Player player1 = new Player("player1", 100); //create player with 100 dollars
 
         public MainWindow()
         {
@@ -50,7 +56,7 @@ namespace BlackJack
 
         }
 
-        //Player Action Buttons
+        //Player Action Buttons***********************************************************************************************
         public void ButtonDeal_Click(object sender, RoutedEventArgs e)
         {
             deck.Shuffle();
@@ -81,7 +87,7 @@ namespace BlackJack
             bci.UriSource = new Uri(@"C:\Users\banihi2\source\repos\BlackJack\BlackJack\Images\" + "blue_back.png", UriKind.Relative);
             bci.EndInit();
             hiddenCardImage.Source = bci;
-            ResizeImage(hiddenCardImage, 100, 200);
+            ResizeImage(hiddenCardImage, 80, 160);
             DealerCards.Children.Add(hiddenCardImage);
 
             DealPlayer();
@@ -103,7 +109,9 @@ namespace BlackJack
         {
             DealerFlips();
         }
+        //*********************************************************************************************************************
 
+        //Card Image methods*****************************************************************************************************
         //get image for dealt card
         public Image GetCardImage(Card card)
         {
@@ -313,7 +321,7 @@ namespace BlackJack
             
             bci.EndInit();
             cardImage.Source = bci;
-            ResizeImage(cardImage, 100, 200);
+            ResizeImage(cardImage, 80, 160);
             return cardImage;
         }
 
@@ -340,25 +348,42 @@ namespace BlackJack
             img.Width = resizeWidth;
             img.Height = resizeHeight;
         }
+        //**************************************************************************************************************************
 
         public void DealerFlips()
         {
-            
-            if ((dealerCount <= 15)&& (dealerFakeCount < playerCount)) {
+            DealerCards.Children.RemoveAt(0);
+            DealerCards.Children.Add(GetCardImage(dealHiddenCard));
+            if ((dealerCount <= 15)&& (dealerCount < playerCount)) {
                 DealDealer();
                 DealerFlips();
             }
             else
-            {
-                DealerCards.Children.RemoveAt(0);
-                DealerCards.Children.Add(GetCardImage(dealHiddenCard));
+            {    
                 checkWin();
             }
         }
         //deal card to player
         public void DealDealer()
         {
-            Card dealerCard = deck.DealCard();
+            Card dealerCard = deck.DealCard(); 
+            //ace condition
+            if(dealerCard.face == "Ace")
+            {
+                if(dealerCount == 10)
+                {
+                    dealerCard.rank = 11;
+                }
+                else if(dealerCount > 10)
+                {
+                    dealerCard.rank = 1;
+                }
+                else
+                {
+                    dealerCard.rank = 1;
+                    dealerHasAce = true;
+                }
+            }
             dealerCount = dealerCard.rank + dealerCount;
             DealerCards.Children.Add(GetCardImage(dealerCard));
         }
@@ -367,39 +392,149 @@ namespace BlackJack
         public void DealPlayer()
         {
             Card playerCard = deck.DealCard();
+            //ace condition 
+            if (playerCard.face == "Ace")
+            {
+                if (playerCount == 10)
+                {
+                    playerCard.rank = 11;
+                }
+                else if (playerCount > 10)
+                {
+                    playerCard.rank = 1;
+                }
+                else
+                {
+                    playerCard.rank = 11;
+                    playerHasAce = true;
+                }
+            }
             playerCount = playerCard.rank + playerCount;
             PlayerCards.Children.Add(GetCardImage(playerCard));
         }
+
+        //Betting actions****************************************************************************************************************
+        public void ButtonBet1_Click(object sender, RoutedEventArgs e)
+        {
+            player1.Money = player1.Money - 1;
+            TextBlock_PlayerMoney.Text = "$" + player1.Money.ToString();
+            pot = pot + 2*1;
+            TextBlock_PotMoney.Text = "$" + pot.ToString();
+        }
+        public void ButtonBet2_Click(object sender, RoutedEventArgs e)
+        {
+            player1.Money = player1.Money - 2;
+            TextBlock_PlayerMoney.Text = "$" + player1.Money.ToString();
+            pot = pot + 4;
+            TextBlock_PotMoney.Text = "$" + pot.ToString();
+        }
+        public void ButtonBet3_Click(object sender, RoutedEventArgs e)
+        {
+            player1.Money = player1.Money - 3;
+            TextBlock_PlayerMoney.Text = "$" + player1.Money.ToString();
+            pot = pot + 6;
+            TextBlock_PotMoney.Text = "$" + pot.ToString();
+        }
+        public void ButtonBet4_Click(object sender, RoutedEventArgs e)
+        {
+            player1.Money = player1.Money - 4;
+            TextBlock_PlayerMoney.Text = "$" + player1.Money.ToString();
+            pot = pot + 8;
+            TextBlock_PotMoney.Text = "$" + pot.ToString();
+        }
+        public void ButtonBet5_Click(object sender, RoutedEventArgs e)
+        {
+            player1.Money = player1.Money - 5;
+            TextBlock_PlayerMoney.Text = "$" + player1.Money.ToString();
+            pot = pot + 10;
+            TextBlock_PotMoney.Text = "$" + pot.ToString();
+        }
+        public void ButtonBet6_Click(object sender, RoutedEventArgs e)
+        {
+            player1.Money = player1.Money - 6;
+            TextBlock_PlayerMoney.Text = "$" + player1.Money.ToString();
+            pot = pot + 12;
+            TextBlock_PotMoney.Text = "$" + pot.ToString();
+        }
+        public void ButtonBet7_Click(object sender, RoutedEventArgs e)
+        {
+            player1.Money = player1.Money - 7;
+            TextBlock_PlayerMoney.Text = "$" + player1.Money.ToString();
+            pot = pot + 14;
+            TextBlock_PotMoney.Text = "$" + pot.ToString();
+        }
+        public void ButtonBet8_Click(object sender, RoutedEventArgs e)
+        {
+            player1.Money = player1.Money - 8;
+            TextBlock_PlayerMoney.Text = "$" + player1.Money.ToString();
+            pot = pot + 16;
+            TextBlock_PotMoney.Text = "$" + pot.ToString();
+        }
+        public void ButtonBet9_Click(object sender, RoutedEventArgs e)
+        {
+            player1.Money = player1.Money - 9;
+            TextBlock_PlayerMoney.Text = "$" + player1.Money.ToString();
+            pot = pot + 18;
+            TextBlock_PotMoney.Text = "$" + pot.ToString();
+        }
+        //*******************************************************************************************************************************
 
         //method to check who won game
         public void checkWin()
         {
            if(playerCount > 21)
             {
-                dealerWin = true;
-                TextBlock_PlayerLoses.Visibility = Visibility.Visible;
+                if (playerHasAce == false)
+                {
+                    dealerWin = true;
+                    TextBlock_PlayerLoses.Visibility = Visibility.Visible;
+                    pot = 0;
+                    TextBlock_PotMoney.Text = "$" + pot.ToString();
+                }
+                else
+                {
+                    playerCount = playerCount - 10;
+                    playerHasAce = false;
+                }
             }
            else if (dealerCount > 21)
             {
-                playerWin = true;
-                TextBlock_PlayerWins.Visibility = Visibility.Visible;
+                if (dealerHasAce == false)
+                {
+                    playerWin = true;
+                    TextBlock_PlayerWins.Visibility = Visibility.Visible;
+                    pot = 0;
+                    TextBlock_PotMoney.Text = "$" + pot.ToString();
+                }
+                else
+                {
+                    dealerCount = dealerCount - 10;
+                    playerHasAce = false;
+                }
             }
            else if (dealerCount == playerCount)
             {
                 gamedraw = true;
                 TextBlock_Draw.Visibility = Visibility.Visible;
+                pot = 0;
+                TextBlock_PotMoney.Text = "$" + pot.ToString();
             }
            else if (dealerCount > playerCount)
             {
                 dealerWin = true;
                 TextBlock_PlayerLoses.Visibility = Visibility.Visible;
+                pot = 0;
+                TextBlock_PotMoney.Text = "$" + pot.ToString();
             }
            else 
             {
                 playerWin = true;
+                player1.Money = player1.Money + pot;
+                TextBlock_PlayerMoney.Text = "$" + player1.Money.ToString();
                 TextBlock_PlayerWins.Visibility = Visibility.Visible;
-            }
-            
+                pot = 0;
+                TextBlock_PotMoney.Text = "$" + pot.ToString();
+            }        
         }
     }
 }
